@@ -1,0 +1,53 @@
+{
+  "name": "wingbot-tests-gsheets",
+  "version": "1.0.0",
+  "description": "Google Sheet Storage for Test Cases",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "npm run test:lint && npm run test:coverage && npm run test:coverage:threshold",
+    "test:unit": "mocha ./test/**/*.js",
+    "test:unit:watch": "npm run test:unit -- --watch",
+    "test:coverage": "nyc --reporter=html mocha --opts ./test/mocha.opts ./test && nyc report",
+    "test:coverage:threshold": "nyc check-coverage --lines 80 --functions 80 --branches 75",
+    "test:lint": "eslint ./src/**/*.js ./bin/**/*.js ./test/**/*.js ",
+    "doc": "node ./bin/makeApiDoc.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/wingbotai/wingbot-tests-gsheets.git"
+  },
+  "keywords": [
+    "wingbot",
+    "google",
+    "sheets",
+    "chatbot",
+    "testing",
+    "storage",
+    "tests"
+  ],
+  "author": "wingbot.ai",
+  "license": "MIT",
+  "engines": {
+    "node": "^8.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/wingbotai/wingbot-tests-gsheets/issues"
+  },
+  "homepage": "https://github.com/wingbotai/wingbot-tests-gsheets#readme",
+  "devDependencies": {
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-mocha": "^0.7.3",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsdoc": "^15.11.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-mocha": "^6.2.0",
+    "eslint-plugin-react": "^7.16.0",
+    "jsdoc-to-markdown": "^5.0.2",
+    "mocha": "^6.2.1",
+    "nyc": "^14.1.1"
+  },
+  "dependencies": {
+    "google-spreadsheet": "^2.0.8"
+  }
+}
