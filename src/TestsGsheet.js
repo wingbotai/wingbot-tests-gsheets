@@ -5,6 +5,9 @@
 
 const GoogleSpreadsheet = require('google-spreadsheet');
 
+const INPUT_FIELD = 'userinputtextorinteraction-path';
+const TEXTS_TEST_TITLE = 'NLP test';
+
 /**
  * @typedef {object} TestCaseStep
  * @prop {number} step
@@ -32,9 +35,9 @@ class TestsGsheet {
     /**
      *
      * @param {string} sheetId
-     * @param {object} googleToken
+     * @param {object} [googleToken]
      */
-    constructor (sheetId, googleToken) {
+    constructor (sheetId, googleToken = null) {
         this._gs = new GoogleSpreadsheet(sheetId);
         this._googleToken = googleToken;
     }
@@ -82,6 +85,9 @@ class TestsGsheet {
      * @returns {Promise<TestCase[]>}
      */
     async getTestCases () {
+        if (this._googleToken) {
+            await this._authorize();
+        }
         const { worksheets } = await this._getInfo();
 
         const lists = await Promise.all(worksheets
@@ -95,7 +101,28 @@ class TestsGsheet {
             let rowNum = 1;
             for (const row of rows) {
                 rowNum++;
-                if (!testCase || (row.testcase && !row['userinputtextorinteraction-path'])) {
+                if (row.text) {
+                    if (!testCase || testCase.list !== sheet.title) {
+                        testCase = testCases
+                            .find((t) => t.list === sheet.title && t.name === TEXTS_TEST_TITLE);
+
+                        if (!testCase) {
+                            testCase = {
+                                list: sheet.title,
+                                name: TEXTS_TEST_TITLE,
+                                texts: []
+                            };
+                            testCases.push(testCase);
+                        }
+                    }
+
+                    testCase.texts.push({
+                        text: row.text,
+                        intent: row.intent || null,
+                        action: row.action || null,
+                        appId: row.appid || null
+                    });
+                } else if (!testCase || (row.testcase && !row[INPUT_FIELD])) {
                     testCase = {
                         list: sheet.title,
                         name: row.testcase,
@@ -103,7 +130,7 @@ class TestsGsheet {
                     };
                     testCases.push(testCase);
                 } else {
-                    const action = row['userinputtextorinteraction-path'];
+                    const action = row[INPUT_FIELD];
                     const {
                         firstinteractionpathofchatbotresponse: passedAction = '',
                         chatbottextreactionscontains: textContains = '',
