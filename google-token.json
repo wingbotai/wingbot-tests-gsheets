@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "wingbot-tests-gsheets-public",
+  "private_key_id": "ad611d43a4e88515c677cff1f96e41a9b2f657fe",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC16jYVRG6uY4LX\nvMptUPv/MUv/NgZRU1ESawzwJvEGbjCQIggIKScv/hN14mKS/hRe4fBjAb4nB5Bf\nwL9lNuc51K5QdyfyyXMCQcWXz6VkhiX1V0nsIDCK1PghyhovLodzBgK6NC3KAyS2\nwQcQ1BhfEzM2uRJ9fpoHZCcjY6UJPreEdwemioS1pknge30Rarj/7/HArs7NumML\nIdW8icpAwg8YKVBJsGt4iNhxgxN7Ovxdlcq0/brznrN9X7De1TRIhfc2NbuvE+vv\nQQqW9YDC+SimO57w9/oZER7ZAnvp4kUPv0aKwMj0NnNffi1TttPkcsvH28y3KpMR\n+YkTrAAtAgMBAAECggEADztituopeFmluYm5y2h2CTqn+eEcq0+WILws86jXEqpE\nT7VBxekoOlkEaSEBDvzOWNmDRs79DIiSGqppfECaINoBlIQ9qJMcmapHMLx2xVGE\nOSRLcMWLOvy1ICMriRrUxZlRviSjVuBngRPtkwenWMKjTag2d6KTpB3LNyffSEQ/\nDQS+SxCr59pwlFH2LAUZVi9CBMiaa4U8CKQZY07QAODVwCIoML66k5+HJG2eRVMh\npcgmslJnn5tWt3NEkWFzR257TneXL1qtoRhsqO6FpDC0ImgHj1kEQgeXbaindtNL\nY4VawRkpnwyq9JIP6mDNwPzQF+1WjfWqU777WpGhkwKBgQD7A/Pq2quxgiPTWF8Q\nDOD8k6KYJaI/hIPvCXfsqSVHomOelDF2OJvBIKhaBSIR09sRHMlCiH0kN6bkGc+6\nfLcd6LnUdrtaFVrmz1qbSqyk+AuJRfOyge0JwCltXmHDqLKHPT48AAYMsezPeP1R\npT7oGnO84w37mevKGlIkh/crEwKBgQC5hvulNtgJ4CaQD62m+6lfVxJBpe++MDNH\nQA3KOFrE1N2JFDgHdpMlWMghH1hd3PVeRsGjyvMHBhlWYoNvh724qCo+dhmedbzM\nr9c839uq2GrvxljELePu7Bj1jh/Q4zflQFthbrgW3ppwvGZKb1a47ON1xby+Rsc0\nMzCo+yhPvwKBgQDlJjKiD4X1wkxaP65oxJkPeudP5es7+QlISmiET9WMk55Fwht1\nRTBLGjkWFOGJTNILyS+h4V/8lCFy0m1kXT39u9sJLmrSTfRyCJE6eu0onJhLdOSH\n7TwrTpWDFkpBh9uSwkHyHENpi3QX4ue+hQ/sa1mE8fJt4ZHzKhwa5VSqqQKBgDgT\nrcJdVmV9xAotQv7C+InhxpnjLxjcdtNlcAWcjQsLkD6bxueyln1mXW9tiwcr/1pU\nprj8YgLQfB4ZPsMaU2UaJ1Kj3dCAo+V2jOdQfpQgQApjeHcrq8aOxGiMYd+AnmeD\n0Vsc3TXEaQgEWiLLjnns2D/D2e3ldNa5Vk7tQ1z/AoGBAL1kaZ3yDshHo328S5n/\nk6TKM5QFVUyl/zbeZJIBfsGIi4Wi4eRO2iET1+gkuj6zMRuZCvj5u/ZXmlNvQksC\nFoG2K9Z4enExDRsFppXtDxr7gpka8C3mJfgle4KZgLwSc2G5oXlGq8lQm/+ELaN8\nznJJFTacrIRy1BWUHC3cIsuM\n-----END PRIVATE KEY-----\n",
+  "client_email": "public-sheet@wingbot-tests-gsheets-public.iam.gserviceaccount.com",
+  "client_id": "106310111968750095210",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/public-sheet%40wingbot-tests-gsheets-public.iam.gserviceaccount.com"
+}
