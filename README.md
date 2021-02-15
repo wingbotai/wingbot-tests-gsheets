@@ -2,6 +2,8 @@
 
 Fast solution for automated conversation tests
 
+*Example testing sheet: https://docs.google.com/spreadsheets/d/1Tl1-NvGO0buR1z1YoB0eYutJ9EdpcXr-DFPuiUxg3Fg/edit#gid=0*
+
 ## Usage
 
 ```javascript

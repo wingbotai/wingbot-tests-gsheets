@@ -3,10 +3,12 @@
  */
 'use strict';
 
-const GoogleSpreadsheet = require('google-spreadsheet');
+// @ts-ignore
+const { GoogleSpreadsheet } = require('google-spreadsheet');
 
-const INPUT_FIELD = 'userinputtextorinteraction-path';
+const INPUT_FIELD = 'User input text or #interaction-path';
 const TEXTS_TEST_TITLE = 'NLP test';
+
 
 /**
  * @typedef {object} TestCaseStep
@@ -42,43 +44,17 @@ class TestsGsheet {
         this._googleToken = googleToken;
     }
 
-    _authorize () {
-        return new Promise((resolve, reject) => {
-            this._gs.useServiceAccountAuth(this._googleToken, (err, res) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(res);
-                }
-            });
-        });
+
+    async _authorize () {
+        return this._gs.useServiceAccountAuth(this._googleToken);
     }
 
-    _getInfo () {
-        return new Promise((resolve, reject) => {
-            this._gs.getInfo((err, res) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(res);
-                }
-            });
-        });
+    async _getInfo () {
+        return this._gs.loadInfo();
     }
 
     _getRows (ws) {
-        return new Promise((resolve, reject) => {
-            ws.getRows({
-                offset: 0,
-                limit: ws.rowCount
-            }, (err, res) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(res);
-                }
-            });
-        });
+        return ws.getRows({ offset: 0, limit: ws.rowCount });
     }
 
     /**
@@ -88,7 +64,9 @@ class TestsGsheet {
         if (this._googleToken) {
             await this._authorize();
         }
-        const { worksheets } = await this._getInfo();
+
+        await this._getInfo();
+        const worksheets = this._gs.sheetsByIndex;
 
         const lists = await Promise.all(worksheets
             .map((ws) => this._getRows(ws)));
@@ -101,13 +79,16 @@ class TestsGsheet {
             let rowNum = 1;
             for (const row of rows) {
                 rowNum++;
-                if (row.text) {
+                if (row.Text) {
+                    // @ts-ignore
                     if (!testCase || testCase.list !== sheet.title) {
                         testCase = testCases
+                            // @ts-ignore
                             .find((t) => t.list === sheet.title && t.name === TEXTS_TEST_TITLE);
 
                         if (!testCase) {
                             testCase = {
+                                // @ts-ignore
                                 list: sheet.title,
                                 name: TEXTS_TEST_TITLE,
                                 texts: []
@@ -117,25 +98,26 @@ class TestsGsheet {
                     }
 
                     testCase.texts.push({
-                        text: row.text,
+                        text: row.Text,
                         intent: row.intent || null,
                         action: row.action || null,
                         appId: row.appid || null
                     });
-                } else if (!testCase || (row.testcase && !row[INPUT_FIELD])) {
+                } else if (!testCase || (row.Testcase && !row[INPUT_FIELD])) {
                     testCase = {
+                        // @ts-ignore
                         list: sheet.title,
-                        name: row.testcase,
+                        name: row.Testcase,
                         steps: []
                     };
                     testCases.push(testCase);
                 } else {
                     const action = row[INPUT_FIELD];
                     const {
-                        firstinteractionpathofchatbotresponse: passedAction = '',
-                        chatbottextreactionscontains: textContains = '',
-                        quickrepliestextscontains: quickRepliesContains = '',
-                        inputdescription: stepDescription = ''
+                        'First interaction path of chatbot response': passedAction = '',
+                        'Chatbot text reactions contains': textContains = '',
+                        'Quick replies texts contains': quickRepliesContains = '',
+                        'Input description': stepDescription = ''
                     } = row;
                     testCase.steps.push({
                         step: testCase.steps.length + 1,
