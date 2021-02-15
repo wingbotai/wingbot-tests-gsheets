@@ -79,7 +79,7 @@ class TestsGsheet {
             let rowNum = 1;
             for (const row of rows) {
                 rowNum++;
-                if (row.Text) {
+                if (row.Text || row.text) {
                     // @ts-ignore
                     if (!testCase || testCase.list !== sheet.title) {
                         testCase = testCases
@@ -97,12 +97,14 @@ class TestsGsheet {
                         }
                     }
 
-                    testCase.texts.push({
-                        text: row.Text,
-                        intent: row.intent || null,
-                        action: row.action || null,
-                        appId: row.appid || null
-                    });
+                    const o = {
+                        text: row.Text || row.text,
+                        intent: row.intent || row.Intent || null,
+                        action: row.action || row.Action || null,
+                        appId: row.appId || row.appid || row.AppId || null
+                    };
+
+                    testCase.texts.push(o);
                 } else if (!testCase || (row.Testcase && !row[INPUT_FIELD])) {
                     testCase = {
                         // @ts-ignore

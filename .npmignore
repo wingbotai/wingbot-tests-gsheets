@@ -8,3 +8,5 @@ test
 bin
 
 doc/*
+
+./google-token.json
