@@ -42,6 +42,16 @@ class TestsGsheet {
     constructor (sheetId, googleToken = null) {
         this._gs = new GoogleSpreadsheet(sheetId);
         this._googleToken = googleToken;
+
+        /**
+         * Cache duration
+         *
+         * @property {number}
+         */
+        this.cacheDuration = 120000; // two minutes
+
+        this._cachedData = null;
+        this._listsCachedAt = 0;
     }
 
 
@@ -57,19 +67,30 @@ class TestsGsheet {
         return ws.getRows({ offset: 0, limit: ws.rowCount });
     }
 
-    /**
-     * @returns {Promise<TestCase[]>}
-     */
-    async getTestCases () {
+    async _getLists () {
+        if (this._listsCachedAt > (Date.now() - this.cacheDuration)) {
+            return this._cachedData;
+        }
+
         if (this._googleToken) {
             await this._authorize();
         }
 
         await this._getInfo();
         const worksheets = this._gs.sheetsByIndex;
-
         const lists = await Promise.all(worksheets
             .map((ws) => this._getRows(ws)));
+
+        this._listsCachedAt = Date.now();
+        this._cachedData = { worksheets, lists };
+        return this._cachedData;
+    }
+
+    /**
+     * @returns {Promise<TestCase[]>}
+     */
+    async getTestCases () {
+        const { worksheets, lists } = await this._getLists();
 
         const testCases = [];
 
