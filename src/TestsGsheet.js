@@ -48,7 +48,7 @@ class TestsGsheet {
          *
          * @property {number}
          */
-        this.cacheDuration = 120000; // two minutes
+        this.cacheDuration = 30000; // sliding half minute
 
         this._cachedData = null;
         this._listsCachedAt = 0;
@@ -69,6 +69,9 @@ class TestsGsheet {
 
     async _getLists () {
         if (this._listsCachedAt > (Date.now() - this.cacheDuration)) {
+            if (this._listsCachedAt > (Date.now() - 30000)) {
+                this._listsCachedAt = Date.now();
+            }
             return this._cachedData;
         }
 
