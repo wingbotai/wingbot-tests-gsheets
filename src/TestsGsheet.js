@@ -137,7 +137,7 @@ class TestsGsheet {
                         steps: []
                     };
                     testCases.push(testCase);
-                } else {
+                } else if (row[INPUT_FIELD]) {
                     const action = row[INPUT_FIELD];
                     const {
                         'First interaction path of chatbot response': passedAction = '',
