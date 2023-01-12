@@ -8,7 +8,6 @@ const { TestsGsheet } = require('../src/main');
 // @ts-ignore
 const googleToken = require('../google-token.json');
 
-
 describe('<TestsGsheet>', function () {
 
     describe('#getTestCases()', () => {

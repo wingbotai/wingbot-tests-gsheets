@@ -9,7 +9,6 @@ const { GoogleSpreadsheet } = require('google-spreadsheet');
 const INPUT_FIELD = 'User input text or #interaction-path';
 const TEXTS_TEST_TITLE = 'NLP test';
 
-
 /**
  * @typedef {object} TestCaseStep
  * @prop {number} step
@@ -33,7 +32,6 @@ const TEXTS_TEST_TITLE = 'NLP test';
  */
 class TestsGsheet {
 
-
     /**
      *
      * @param {string} sheetId
@@ -53,7 +51,6 @@ class TestsGsheet {
         this._cachedData = null;
         this._listsCachedAt = 0;
     }
-
 
     async _authorize () {
         return this._gs.useServiceAccountAuth(this._googleToken);
@@ -122,6 +119,7 @@ class TestsGsheet {
                     }
 
                     const o = {
+                        rowNum,
                         text: row.Text || row.text,
                         intent: row.intent || row.Intent || null,
                         action: row.action || row.Action || null,
