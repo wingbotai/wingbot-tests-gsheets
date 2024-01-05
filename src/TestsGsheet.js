@@ -3,6 +3,7 @@
  */
 'use strict';
 
+const { JWT } = require('google-auth-library');
 // @ts-ignore
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 
@@ -28,6 +29,12 @@ const TEXTS_TEST_TITLE = 'NLP test';
  */
 
 /**
+ * @typedef {object} GoogleJSONToken
+ * @prop {string} client_email
+ * @prop {string} private_key
+ */
+
+/**
  * Google sheets storage for test cases
  */
 class TestsGsheet {
@@ -35,10 +42,18 @@ class TestsGsheet {
     /**
      *
      * @param {string} sheetId
-     * @param {object} [googleToken]
+     * @param {GoogleJSONToken} [googleToken]
      */
     constructor (sheetId, googleToken = null) {
-        this._gs = new GoogleSpreadsheet(sheetId);
+        const auth = new JWT({
+            email: googleToken.client_email,
+            key: googleToken.private_key,
+            scopes: [
+                'https://www.googleapis.com/auth/spreadsheets'
+            ]
+        });
+
+        this._gs = new GoogleSpreadsheet(sheetId, auth);
         this._googleToken = googleToken;
 
         /**
@@ -50,10 +65,6 @@ class TestsGsheet {
 
         this._cachedData = null;
         this._listsCachedAt = 0;
-    }
-
-    async _authorize () {
-        return this._gs.useServiceAccountAuth(this._googleToken);
     }
 
     async _getInfo () {
@@ -70,10 +81,6 @@ class TestsGsheet {
                 this._listsCachedAt = Date.now();
             }
             return this._cachedData;
-        }
-
-        if (this._googleToken) {
-            await this._authorize();
         }
 
         await this._getInfo();

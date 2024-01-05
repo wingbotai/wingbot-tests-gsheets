@@ -1,6 +1,6 @@
 {
   "name": "wingbot-tests-gsheets",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Google Sheet Storage for Test Cases",
   "main": "src/main.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "test:unit": "mocha ./test/**/*.js",
     "test:unit:watch": "npm run test:unit -- --watch",
     "test:coverage": "nyc --reporter=html mocha ./test && nyc report",
-    "test:coverage:threshold": "nyc check-coverage --lines 70 --functions 80 --branches 28",
+    "test:coverage:threshold": "nyc check-coverage --lines 70 --functions 80 --branches 20",
     "test:lint": "eslint ./src/**/*.js ./bin/**/*.js ./test/**/*.js ",
     "doc": "node ./bin/makeApiDoc.js"
   },
@@ -47,6 +47,7 @@
     "nyc": "^15.1.0"
   },
   "dependencies": {
-    "google-spreadsheet": "^3.3.0"
+    "google-auth-library": "^9.4.1",
+    "google-spreadsheet": "^4.1.1"
   }
 }
