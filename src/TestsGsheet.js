@@ -107,7 +107,7 @@ class TestsGsheet {
             let rowNum = 1;
             for (const row of rows) {
                 rowNum++;
-                if (row.Text || row.text) {
+                if (row.get('Text') || row.get('text')) {
                     // @ts-ignore
                     if (!testCase || testCase.list !== sheet.title) {
                         testCase = testCases
@@ -127,23 +127,23 @@ class TestsGsheet {
 
                     const o = {
                         rowNum,
-                        text: row.Text || row.text,
-                        intent: row.intent || row.Intent || null,
-                        action: row.action || row.Action || null,
-                        appId: row.appId || row.appid || row.AppId || null
+                        text: row.get('Text') || row.get('text'),
+                        intent: row.get('intent') || row.get('Intent') || null,
+                        action: row.get('action') || row.get('Action') || null,
+                        appId: row.get('appId') || row.get('appid') || row.get('AppId') || null
                     };
 
                     testCase.texts.push(o);
-                } else if (!testCase || (row.Testcase && !row[INPUT_FIELD])) {
+                } else if (!testCase || (row.get('Testcase') && !row.get([INPUT_FIELD]))) {
                     testCase = {
                         // @ts-ignore
                         list: sheet.title,
-                        name: row.Testcase,
+                        name: row.get('Testcase'),
                         steps: []
                     };
                     testCases.push(testCase);
-                } else if (row[INPUT_FIELD]) {
-                    const action = row[INPUT_FIELD];
+                } else if (row.get(INPUT_FIELD)) {
+                    const action = row.get(INPUT_FIELD);
                     const {
                         'First interaction path of chatbot response': passedAction = '',
                         'Chatbot text reactions contains': textContains = '',

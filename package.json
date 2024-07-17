@@ -1,6 +1,6 @@
 {
   "name": "wingbot-tests-gsheets",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Google Sheet Storage for Test Cases",
   "main": "src/main.js",
   "scripts": {
